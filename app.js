@@ -26,5 +26,5 @@ app.use("/posts", postRouter)
 app.use(express.static("public"))
 
 app.get("/",()=>{
-    console.log("Api Working");
+    resizeBy.send("Server is working Properly")    
 })
