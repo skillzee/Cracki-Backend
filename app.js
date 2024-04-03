@@ -25,6 +25,6 @@ app.use("/posts", postRouter)
 
 app.use(express.static("public"))
 
-app.get("/",()=>{
+app.get("/",(req, res)=>{
     res.send("Server is working Properly")    
 })
