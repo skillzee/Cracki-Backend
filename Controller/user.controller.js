@@ -49,6 +49,7 @@ export const createNewUser = async(req,res)=>{
 export const logInUser = async(req, res)=>{
     const {email, password} = req.body
     console.log(email);
+    console.log(password);
 
     // if(!username || !email){
     //     throw new ApiError(400, "Username or email is required")
