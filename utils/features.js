@@ -13,6 +13,7 @@ export const sendCookie = (user, res, message, statusCode = 200)=>{
         secure:false
     }).json({
         success: true,
-        message: message
+        message: message,
+        token
     })
 }

@@ -68,7 +68,7 @@ export const createNewUser = async(req,res)=>{
 
 
 
-export const logInUser = async(req, res)=>{
+export const logInUser = async(req, res,next)=>{
     const {email, password} = req.body
     console.log(email);
     console.log(password);
