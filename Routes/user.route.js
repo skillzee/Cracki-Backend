@@ -19,7 +19,7 @@ router.route("/new").post(
 
 
 router.route("/login").post(logInUser)
-router.route("/logout").post(/*isAuthenticated,*/ logout)
+router.route("/logout").post(isAuthenticated, logout)
 router.route("/my").get(isAuthenticated, getMyProfile)
 
 
