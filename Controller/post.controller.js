@@ -14,6 +14,7 @@ export const newPost = async(req, res)=>{
     if(!photo){
         throw new ApiError(400, "Photo file is required")
     }
+    // console.log(req);
 
     const post = await Post.create({
         title,

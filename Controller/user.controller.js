@@ -70,8 +70,8 @@ export const createNewUser = async(req,res)=>{
 
 export const logInUser = async(req, res,next)=>{
     const {email, password} = req.body
-    console.log(email);
-    console.log(password);
+    // console.log(email);
+    // console.log(password);
 
     // if(!username || !email){
     //     throw new ApiError(400, "Username or email is required")
@@ -92,14 +92,15 @@ export const logInUser = async(req, res,next)=>{
 
 
     const loggedInUser = await User.findById(user._id)
-    console.log(req);
     sendCookie(user, res, `Welcome back, ${user.name}`, 200)
+    
 }
 
 
 export const logout = (req,res)=>{
     res.status(200).cookie("token", "", {expires: new Date(Date.now()),
-        httpOnly: true
+        sameSite: process.env.NODE_ENV == "DEVELOPMENT"?"lax": "none",
+        secure:process.env.NODE_ENV == "DEVELOPMENT"?false: true
     }).json({
         success: true,
         message: "Logged Out Successfully",
