@@ -8,7 +8,7 @@ export const sendCookie = (user, res, message, statusCode = 200)=>{
         httpOnly: true,
         maxAge: 15 * 60 * 1000,
         sameSite: process.env.NODE_ENV == "DEVELOPMENT"?"lax": "none",
-        secure:false
+        secure:process.env.NODE_ENV == "DEVELOPMENT"?false: true
     }).json({
         success: true,
         message: message

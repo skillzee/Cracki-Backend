@@ -7,8 +7,8 @@ const router = express.Router();
 
 
 router.route("/new").post(
-    isAuthenticated
-    ,upload.fields([
+    /*isAuthenticated
+    ,*/upload.fields([
         {
             name: "photo",
             maxCount: 1
