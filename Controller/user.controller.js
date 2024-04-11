@@ -92,7 +92,7 @@ export const logInUser = async(req, res,next)=>{
 
 
     const loggedInUser = await User.findById(user._id)
-
+    console.log(req);
     sendCookie(user, res, `Welcome back, ${user.name}`, 200)
 }
 
