@@ -19,7 +19,8 @@ export const newPost = async(req, res)=>{
     const post = await Post.create({
         title,
         photo: photo.url,
-        user: req.user
+        user: req.user,
+        username: req.user.username
     })
 
     res.status(201).json({

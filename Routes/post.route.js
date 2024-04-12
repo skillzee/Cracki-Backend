@@ -18,7 +18,7 @@ router.route("/new").post(
 
 
 router.route("/all").get(isAuthenticated, allPosts)
-router.route("/:id").put(isAuthenticated, likedAPost)
+router.route("/:id").get(isAuthenticated, likedAPost)
 router.route("/:id/comment").put(isAuthenticated, comment)
 
 router.route("/:id").delete(isAuthenticated, deletePost)

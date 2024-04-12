@@ -110,12 +110,27 @@ export const logout = (req,res)=>{
 
 
 
-export const getMyProfile = (req, res)=>{
+export const getProfile = async (req, res) => {
+    try {
+        const { id } = req.user;
+        const user = await User.findById(id);
 
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "User not found by id"
+            });
+        }
 
-    res.status(200).json({
-        success: true,
-        user: req.user
+        res.status(200).json({
+            success: true,
+            user
+        });
+    } catch (error) {
+        console.error("Error fetching user profile:", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
     }
-    )
-}
+};

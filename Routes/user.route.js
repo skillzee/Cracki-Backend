@@ -1,6 +1,6 @@
 import express from "express"
 import { upload } from "../middlewares/multer.middleware.js";
-import { createNewUser, getMyProfile, logInUser, logout } from "../Controller/user.controller.js";
+import { createNewUser, getProfile, logInUser, logout } from "../Controller/user.controller.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
 
@@ -20,7 +20,7 @@ router.route("/new").post(
 
 router.route("/login").post(logInUser)
 router.route("/logout").post(isAuthenticated, logout)
-router.route("/my").get(isAuthenticated, getMyProfile)
+router.route("/myProfile").get(isAuthenticated, getProfile)
 
 
 
