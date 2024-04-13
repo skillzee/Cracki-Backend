@@ -79,30 +79,44 @@ export const createNewUser = async(req,res)=>{
 
 
 export const logInUser = async(req, res,next)=>{
-    const {email, password} = req.body
-    // console.log(email);
-    // console.log(password);
-
-    // if(!username || !email){
-    //     throw new ApiError(400, "Username or email is required")
-    // }
-
-    const user =await User.findOne({email}).select("+password");
-  
-
-    // if(!user){
-    //     throw new ApiError(404, "User does not exist")
-    // }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password)
-
-    if(!isPasswordValid){
-        throw new ApiError(401, "Invalid user credentials")
-    }    
-
-
-    const loggedInUser = await User.findById(user._id)
-    sendCookie(user, res, `Welcome back, ${user.name}`, 200)
+    try {
+        const {email, password} = req.body
+        // console.log(email);
+        // console.log(password);
+    
+        // if(!username || !email){
+        //     throw new ApiError(400, "Username or email is required")
+        // }
+    
+        const user =await User.findOne({email}).select("+password");
+      
+    
+        // if(!user){
+        //     throw new ApiError(404, "User does not exist")
+        // }
+    
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+    
+        if(!isPasswordValid){
+            throw new ApiError(401, "Invalid user credentials")
+        }    
+    
+    
+        const loggedInUser = await User.findById(user._id)
+        sendCookie(user, res, `Welcome back, ${user.name}`, 200)
+    } catch (error) {
+        if (error instanceof ApiError) {
+            return res.status(error.statusCode).json({
+                success: false,
+                message: error.message,
+                errors: error.errors,
+            });
+        }
+        res.status(500).json({
+            success: false,
+            message: "Wrong Password Or Email",
+        });  
+    }
     
 }
 
