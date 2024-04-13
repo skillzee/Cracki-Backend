@@ -61,8 +61,18 @@ export const createNewUser = async(req,res)=>{
             imageUrl: avatar.url
         })
     } catch (error) {
-        throw new ApiError(400, "Problem in creating User", error)
-    }
+        if (error instanceof ApiError) {
+            return res.status(error.statusCode).json({
+                success: false,
+                message: error.message,
+                errors: error.errors,
+            });
+        }
+        res.status(500).json({
+            success: false,
+            message: "Either Fields are missing or User already Exists",
+        });  
+      }
 }
 
 
