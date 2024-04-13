@@ -20,7 +20,9 @@ export const newPost = async(req, res)=>{
         title,
         photo: photo.url,
         user: req.user,
-        username: req.user.username
+        username: req.user.username,
+        userPfp: req.user.avatar
+        
     })
 
     res.status(201).json({
@@ -94,7 +96,7 @@ export const comment = async(req, res)=>{
         })
     }
 
-    const {name} = req.user
+    const {username} = req.user
 
     const {comment} = req.body
 
@@ -110,18 +112,51 @@ export const comment = async(req, res)=>{
 
     const commentArr ={
         text: comment,
-        author: req.user._id
+        author: username,
+        user: req.user
     };
 
 
     post.comments.push(commentArr);
+    
 
-await post.save()
+    await post.save()
+
+    
 
 res.status(200).json({
     success: true,
+    username,
     message: "Commented"
 })
 
 
+}
+
+
+
+export const particularPost= async(req, res)=>{
+    const {id} = req.params
+    if(!id){
+        res.status(400).json({
+            success: false,
+            message: "Id of post not found"
+        })
+    }
+    const post = await Post.findById(id)
+
+
+    if(!id){
+        res.status(400).json({
+            success: false,
+            message: "Post not found"
+        })
+    }
+
+    res.status(200).json({
+        message: "success",
+        post
+    })
+
+    
 }

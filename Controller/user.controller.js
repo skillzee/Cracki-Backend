@@ -102,6 +102,7 @@ export const logout = (req,res)=>{
         sameSite: process.env.NODE_ENV == "DEVELOPMENT"?"lax": "none",
         secure:process.env.NODE_ENV == "DEVELOPMENT"?false: true
     }).json({
+        login:false,
         success: true,
         message: "Logged Out Successfully",
         user: req.user
@@ -134,3 +135,27 @@ export const getProfile = async (req, res) => {
         });
     }
 };
+
+
+
+export const getUserProfile = async(req,res)=>{
+    try {
+        const {id} = req.params
+
+        const user = await User.findById(id)
+
+        if(!user){
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            user
+        })
+    } catch (error) {
+        throw new ApiError(400, "Problem in getting user profile", error)
+    }
+}
