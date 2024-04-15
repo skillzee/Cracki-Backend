@@ -8,7 +8,6 @@ This repository contains the backend code for a dog social media application bui
 - MongoDB integration for data storage.
 - Authentication using JWT (JSON Web Tokens).
 - Middleware for handling authentication and error responses.
-- Docker setup for containerized deployment.
 
 ## Requirements
 
