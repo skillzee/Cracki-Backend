@@ -193,7 +193,6 @@ export const searchProfile = async(req, res) => {
        console.log("Username not found");
       }
       const user = await User.findOne({username});
-      console.log(user);
   
       if (!user) {
         throw new ApiError(404, "User not found");
