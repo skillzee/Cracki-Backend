@@ -91,9 +91,9 @@ export const logInUser = async(req, res,next)=>{
         const user =await User.findOne({email}).select("+password");
       
     
-        // if(!user){
-        //     throw new ApiError(404, "User does not exist")
-        // }
+        if(!user){
+            throw new ApiError(404, "User does not exist")
+        }
     
         const isPasswordValid = await bcrypt.compare(password, user.password)
     
@@ -183,3 +183,39 @@ export const getUserProfile = async(req,res)=>{
         throw new ApiError(400, "Problem in getting user profile", error)
     }
 }
+
+
+
+export const searchProfile = async(req, res) => {
+    try {
+      const {username} = req.body
+      if(!username){
+       console.log("Username not found");
+      }
+      const user = await User.findOne({username});
+      console.log(user);
+  
+      if (!user) {
+        throw new ApiError(404, "User not found");
+      }
+  
+      res.status(200).json({
+        success: true,
+        user
+      });
+  
+    } catch (error) {
+      if (error instanceof ApiError) {
+        return res.status(error.statusCode).json({
+          success: false,
+          message: error.message,
+          errors: error.errors,
+        });
+      }
+      res.status(500).json({
+        success: false,
+        message: "Wrong Password Or Email",
+      });  
+    }
+  }
+  
