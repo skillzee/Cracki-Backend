@@ -14,10 +14,11 @@ config({
 app.use(express.json())
 app.use(cookieParser());
 app.use(cors({
-    origin: process.env.FRONTEND_URI,
+    origin: "https://cracki-frontend.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }))
+
 
 
 app.use("/users", userRouter)
