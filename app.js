@@ -14,7 +14,7 @@ config({
 app.use(express.json())
 app.use(cookieParser());
 app.use(cors({
-    origin: "*",
+    origin: "https://cracki.sytes.net",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }))
