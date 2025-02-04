@@ -14,7 +14,7 @@ config({
 app.use(express.json())
 app.use(cookieParser());
 app.use(cors({
-    origin: "https://cracki-frontend.vercel.app",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }))
